@@ -1,0 +1,14 @@
+<div class="container mt-4">
+    <h2>Lista de Clientes</h2>
+  
+    <ul *ngIf="clientes.length > 0; else noClientes" class="list-group">
+      <li *ngFor="let cliente of clientes" class="list-group-item">
+        <strong>{{ cliente.nombre }}</strong> - {{ cliente.email }} - {{ cliente.telefono }}
+      </li>
+    </ul>
+  
+    <ng-template #noClientes>
+      <p>No hay clientes disponibles.</p>
+    </ng-template>
+  </div>
+  

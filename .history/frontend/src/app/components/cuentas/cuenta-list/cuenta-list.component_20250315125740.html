@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <h2>Lista de Cuentas</h2>
+  
+    <ul *ngIf="cuentas.length > 0; else noCuentas" class="list-group">
+      <li *ngFor="let cuenta of cuentas" class="list-group-item">
+        <strong>{{ cuenta.tipo }}</strong> - 💰 Saldo: <strong>{{ cuenta.saldo }}</strong>  
+        <p>👤 Cliente: <strong>{{ cuenta.cliente?.nombre || 'No asignado' }}</strong></p>  
+  
+        <!-- 🔥 Botón de Ver Detalles con modal -->
+        <button class="btn btn-info btn-sm" (click)="verDetalles(cuenta)">
+          Ver Detalles
+        </button>
+      </li>
+    </ul>
+  
+    <ng-template #noCuentas>
+      <p>No hay cuentas disponibles.</p>
+    </ng-template>
+  
+    <!-- 🔥 Modal con diseño mejorado -->
+    <!-- ✅ Solo mostrar si hay datos -->
+<div *ngIf="mostrarModal && ultimoMovimiento">
+    <div class="modal-content">
+      <h4>Detalles del Movimiento</h4>
+      <p><strong>Monto:</strong> {{ ultimoMovimiento?.monto }}</p>
+      <p><strong>Tipo:</strong> {{ ultimoMovimiento?.tipo }}</p>
+      <p><strong>Fecha:</strong> {{ ultimoMovimiento?.fecha | date:'short' }}</p>
+      <p *ngIf="ultimoMovimiento?.cuenta">
+        <strong>Cuenta:</strong> {{ ultimoMovimiento?.cuenta.tipo }} - Saldo: {{ ultimoMovimiento?.cuenta.saldo }}
+      </p>
+      <p *ngIf="ultimoMovimiento?.cuenta?.cliente">
+        <strong>Cliente:</strong> {{ ultimoMovimiento?.cuenta.cliente.nombre }}
+      </p>
+      <button class="btn btn-danger btn-sm" (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+  
+  </div>
+  

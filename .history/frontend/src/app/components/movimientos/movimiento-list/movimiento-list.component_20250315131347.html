@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <h2>Lista de Movimientos</h2>
+
+    <ul *ngIf="movimientos.length > 0; else noMovimientos" class="list-group">
+      <li *ngFor="let movimiento of movimientos" class="list-group-item">
+        <p><strong>Monto:</strong> 💰 {{ movimiento.monto }}</p>
+        <p><strong>Fecha:</strong> 📅 {{ movimiento.fecha | date:'short' }}</p>
+
+        <!-- Botón para ver detalles -->
+        <button class="btn btn-primary btn-sm mt-2" 
+                [disabled]="!movimiento.cuenta || !movimiento.cuenta.id"
+                (click)="obtenerUltimoMovimiento(movimiento)">
+          Detalles del Movimiento
+        </button>
+      </li>
+    </ul>
+
+    <ng-template #noMovimientos>
+      <p>No hay movimientos disponibles.</p>
+    </ng-template>
+
+    <!-- 🔥 Modal con mejor diseño -->
+    <div *ngIf="mostrarModal" class="modal-backdrop">
+      <div class="modal-content">
+        <h4 class="modal-title">📄 Detalles del Movimiento</h4>
+        <hr>
+        <p><strong>💰 Monto:</strong> {{ ultimoMovimiento?.monto || 'No disponible' }}</p>
+        <p><strong>📅 Fecha:</strong> {{ ultimoMovimiento?.fecha | date:'short' || 'No disponible' }}</p>
+        <p><strong>🏦 Cuenta:</strong> {{ ultimoMovimiento?.cuenta?.tipo || 'No disponible' }}</p>
+        <p><strong>👤 Cliente:</strong> {{ ultimoMovimiento?.cuenta?.cliente?.nombre || 'No disponible' }}</p>
+        <p><strong>🔄 Tipo:</strong> {{ ultimoMovimiento?.tipo || 'No disponible' }}</p>
+        
+        <!-- Botón de cierre -->
+        <button class="btn btn-danger btn-sm mt-3" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+</div>

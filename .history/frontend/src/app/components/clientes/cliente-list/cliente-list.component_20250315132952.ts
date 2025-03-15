@@ -1,0 +1,55 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
+import { ClienteService } from '../../../services/cliente.service';
+import { MovimientoService } from '../../../services/movimiento.service';
+
+@Component({
+  selector: 'app-cliente-list',
+  standalone: true,
+  imports: [CommonModule, NgIf],
+  templateUrl: './cliente-list.component.html',
+  styleUrls: ['./cliente-list.component.css']
+})
+export class ClienteListComponent implements OnInit {
+  clientes: any[] = [];
+  ultimoMovimiento: any = null; // Aquí guardaremos el último movimiento
+  mostrarModal: boolean = false; // Controla si el modal está visible
+
+  constructor(
+    private clienteService: ClienteService,
+    private movimientoService: MovimientoService
+  ) {}
+
+  ngOnInit(): void {
+    this.clienteService.getClientes().subscribe({
+      next: (data) => {
+        console.log('Clientes recibidos:', data);
+        this.clientes = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener clientes:', err);
+      }
+    });
+  }
+
+  // 🔥 Método para obtener el último movimiento de un cliente
+  obtenerUltimoMovimiento(clienteId: number): void {
+    this.movimientoService.getUltimoMovimiento(clienteId).subscribe({
+      next: (data) => {
+        console.log('Último movimiento:', data);
+        this.ultimoMovimiento = data;
+        this.mostrarModal = true; // Muestra el modal
+      },
+      error: (err) => {
+        console.error('Error al obtener el último movimiento:', err);
+        this.ultimoMovimiento = null;
+      }
+    });
+  }
+
+  // 🔥 Método para cerrar el modal
+  cerrarModal(): void {
+    this.mostrarModal = false;
+    this.ultimoMovimiento = null;
+  }
+}

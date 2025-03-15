@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <h2>Lista de Clientes</h2>
+  
+    <ul *ngIf="clientes.length > 0; else noClientes" class="list-group">
+      <li *ngFor="let cliente of clientes" class="list-group-item">
+        <strong>{{ cliente.nombre }}</strong> - 📧 {{ cliente.email }} - 📞 {{ cliente.telefono }}
+        
+        <ul *ngIf="cliente.cuentas.length > 0" class="mt-2">
+          <li *ngFor="let cuenta of cliente.cuentas">
+            🏦 <strong>{{ cuenta.tipo }}</strong> - 💰 Saldo: <strong>{{ cuenta.saldo }}</strong>
+          </li>
+        </ul>
+        <p *ngIf="cliente.cuentas.length === 0" class="text-muted">🚫 No tiene cuentas registradas.</p>
+  
+        <!-- 🔥 Botón para ver el último movimiento -->
+        <button class="btn btn-primary btn-sm mt-2" (click)="obtenerUltimoMovimiento(cliente.id)">
+          Ver Último Movimiento
+        </button>
+      </li>
+    </ul>
+  
+    <ng-template #noClientes>
+      <p>No hay clientes disponibles.</p>
+    </ng-template>
+  
+    <!-- 🔥 Modal para mostrar el último movimiento -->
+    <div *ngIf="mostrarModal" class="modal fade show d-block">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+          <h4 class="modal-title text-center">Último Movimiento</h4>
+          <hr>
+          <p><strong>Monto:</strong> 💰 {{ ultimoMovimiento?.monto }}</p>
+          <p><strong>Tipo:</strong> 🔄 {{ ultimoMovimiento?.tipo }}</p>
+          <p><strong>Fecha:</strong> 📅 {{ ultimoMovimiento?.fecha | date:'short' }}</p>
+          <div class="text-center mt-3">
+            <button class="btn btn-danger btn-sm" (click)="cerrarModal()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

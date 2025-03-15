@@ -1,0 +1,20 @@
+<div class="container mt-4">
+    <h2>Lista de Clientes</h2>
+  
+    <ul *ngIf="clientes.length > 0; else noClientes" class="list-group">
+      <li *ngFor="let cliente of clientes" class="list-group-item">
+        <strong>{{ cliente.nombre }}</strong> - {{ cliente.email }} - {{ cliente.telefono }}
+        <ul *ngIf="cliente.cuentas.length > 0">
+          <li *ngFor="let cuenta of cliente.cuentas">
+            🏦 Tipo de cuenta: <strong>{{ cuenta.tipo }}</strong> - 💰 Saldo: <strong>{{ cuenta.saldo }}</strong>
+          </li>
+        </ul>
+        <p *ngIf="cliente.cuentas.length === 0">🚫 No tiene cuentas registradas.</p>
+      </li>
+    </ul>
+  
+    <ng-template #noClientes>
+      <p>No hay clientes disponibles.</p>
+    </ng-template>
+  </div>
+  

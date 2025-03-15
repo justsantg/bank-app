@@ -1,0 +1,3 @@
+Comandos utilizados para correr el proyecto
+
+backend

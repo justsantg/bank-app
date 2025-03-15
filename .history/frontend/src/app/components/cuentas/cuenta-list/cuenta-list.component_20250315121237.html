@@ -1,0 +1,27 @@
+<div class="container mt-4">
+    <h2>Lista de Cuentas</h2>
+  
+    <ul *ngIf="cuentas.length > 0; else noCuentas" class="list-group">
+      <li *ngFor="let cuenta of cuentas" class="list-group-item">
+        🏦 <strong>{{ cuenta.tipo }}</strong> - 💰 Saldo: <strong>{{ cuenta.saldo }}</strong>
+        <button class="btn btn-info btn-sm float-end" [routerLink]="['/cuenta', cuenta.id]">
+          Ver Detalles
+        </button>
+      </li>
+    </ul>
+
+    <div class="container mt-4" *ngIf="cuenta">
+        <h2>Detalles de la Cuenta</h2>
+        <p><strong>ID:</strong> {{ cuenta.id }}</p>
+        <p><strong>Tipo:</strong> {{ cuenta.tipo }}</p>
+        <p><strong>Saldo:</strong> {{ cuenta.saldo }}</p>
+      
+        <button class="btn btn-primary mt-2" (click)="volver()">Volver</button>
+    </div>
+      
+  
+    <ng-template #noCuentas>
+      <p>No hay cuentas disponibles.</p>
+    </ng-template>
+  </div>
+  

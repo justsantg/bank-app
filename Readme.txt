@@ -1,0 +1,14 @@
+Comandos utilizados para correr el proyecto
+
+backend: 
+
+1. npm run star:dev
+
+Base de datos PostgresQL: 
+
+1. psql -U postgres
+2. \c bank_db
+
+Frontend Angular:
+
+1. ng serve

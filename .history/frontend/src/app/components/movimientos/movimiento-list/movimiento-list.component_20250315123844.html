@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2>Lista de Movimientos</h2>
+  
+    <ul *ngIf="movimientos.length > 0; else noMovimientos" class="list-group">
+      <li *ngFor="let movimiento of movimientos" class="list-group-item">
+        <p><strong>Monto:</strong> 💰 {{ movimiento.monto }}</p>
+        <p><strong>Tipo:</strong> {{ movimiento.tipo === 'Crédito' ? '➕ Crédito' : '➖ Débito' }}</p>
+        <p><strong>Fecha:</strong> 📅 {{ movimiento.fecha | date:'short' }}</p>
+        <p><strong>Cuenta:</strong> 🏦 {{ movimiento.cuenta?.tipo || 'N/A' }}</p>
+  
+        <!-- 🔥 Botón para ver detalles del movimiento -->
+        <button class="btn btn-primary btn-sm mt-2" (click)="obtenerUltimoMovimiento(movimiento.cuenta.id)">
+          Detalles del Movimiento
+        </button>
+      </li>
+    </ul>
+  
+    <ng-template #noMovimientos>
+      <p>No hay movimientos registrados.</p>
+    </ng-template>
+  
+    <!-- 🔥 Modal para mostrar detalles del movimiento -->
+    <div *ngIf="mostrarModal" class="modal-backdrop">
+      <div class="modal-content">
+        <h4>Detalles del Movimiento</h4>
+        <p><strong>Monto:</strong> 💰 {{ ultimoMovimiento?.monto }}</p>
+        <p><strong>Tipo:</strong> {{ ultimoMovimiento?.tipo === 'Crédito' ? '➕ Crédito' : '➖ Débito' }}</p>
+        <p><strong>Fecha:</strong> 📅 {{ ultimoMovimiento?.fecha | date:'short' }}</p>
+        <p><strong>Cuenta:</strong> 🏦 {{ ultimoMovimiento?.cuenta?.tipo || 'N/A' }}</p>
+        <p><strong>Cliente:</strong> 👤 {{ movimientos.cuentas?.cliente?.nombre || 'No disponible' }}</p>
+        <button class="btn btn-danger btn-sm" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  

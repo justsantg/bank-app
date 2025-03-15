@@ -1,0 +1,6 @@
+Comandos utilizados para correr el proyecto
+
+backend: 
+npm run star:dev
+Base de datos PostgresQL: 
+1. psql -U postgres

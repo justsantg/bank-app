@@ -1,0 +1,25 @@
+<div class="container mt-4">
+    <h2>Lista de Cuentas</h2>
+  
+    <ul *ngIf="cuentas.length > 0; else noCuentas" class="list-group">
+      <li *ngFor="let cuenta of cuentas" class="list-group-item">
+        🏦 <strong>{{ cuenta.tipo }}</strong> - 💰 Saldo: <strong>{{ cuenta.saldo }}</strong>
+        <br>
+        👤 Cliente: <strong>{{ cuenta.cliente?.nombre || 'Sin Cliente' }}</strong>
+        <br>
+        💳 Tipo: <strong [ngClass]="{'text-success': cuenta.tipo === 'Crédito', 'text-danger': cuenta.tipo === 'Débito'}">
+          {{ cuenta.tipo }}
+        </strong>
+        <br>
+  
+        <button class="btn btn-info btn-sm mt-2" [routerLink]="['/cuenta', cuenta.id]">
+          Ver Detalles
+        </button>
+      </li>
+    </ul>
+  
+    <ng-template #noCuentas>
+      <p>No hay cuentas disponibles.</p>
+    </ng-template>
+  </div>
+  

@@ -1,0 +1,19 @@
+<div class="container mt-5">
+    <h2>Lista de Clientes</h2>
+    <ul class="list-group">
+      <li
+        *ngFor="let cliente of clientes"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <strong>{{ cliente.nombre }}</strong><br />
+          <small>Email: {{ cliente.email }}</small><br />
+          <small>Teléfono: {{ cliente.telefono }}</small>
+        </div>
+        <a [routerLink]="['/clientes', cliente.id]" class="btn btn-primary">
+          Ver detalles
+        </a>
+      </li>
+    </ul>
+  </div>
+  

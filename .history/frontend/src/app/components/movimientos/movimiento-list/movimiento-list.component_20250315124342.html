@@ -1,0 +1,31 @@
+<div class="container mt-4">
+    <h2>Lista de Movimientos</h2>
+  
+    <ul *ngIf="movimientos.length > 0; else noMovimientos" class="list-group">
+      <li *ngFor="let movimiento of movimientos" class="list-group-item">
+        <p><strong>Monto:</strong> 💰 {{ movimiento.monto }}</p>
+        <p><strong>Fecha:</strong> 📅 {{ movimiento.fecha | date:'short' }}</p>
+  
+        <!-- Botón para ver detalles -->
+        <button class="btn btn-primary btn-sm mt-2" (click)="obtenerUltimoMovimiento(movimiento.cuenta.id)">
+          Detalles del Movimiento
+        </button>
+      </li>
+    </ul>
+  
+    <ng-template #noMovimientos>
+      <p>No hay movimientos disponibles.</p>
+    </ng-template>
+  
+    <!-- Modal para mostrar el último movimiento -->
+    <div *ngIf="mostrarModal" class="modal-backdrop">
+      <div class="modal-content">
+        <h4>Detalles del Movimiento</h4>
+        <p><strong>Cuenta:</strong> 🏦 {{ ultimoMovimiento?.cuenta?.tipo ?? 'No disponible' }}</p>
+        <p><strong>Cliente:</strong> 👤 {{ ultimoMovimiento?.cuenta?.cliente?.nombre ?? 'No disponible' }}</p>
+        <p><strong>Tipo:</strong> {{ ultimoMovimiento?.tipo }}</p>
+        <button class="btn btn-danger btn-sm" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  
