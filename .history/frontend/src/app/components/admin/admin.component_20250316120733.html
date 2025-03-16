@@ -1,0 +1,120 @@
+<div class="container mt-4">
+  <h2 class="text-center">Panel de Administración</h2>
+
+  <!-- 🔹 Sección de Clientes -->
+  <div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+      <h4>📌 Gestionar Clientes</h4>
+    </div>
+    <div class="card-body">
+      <!-- Formulario para agregar clientes -->
+      <form (ngSubmit)="agregarCliente()">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="cliente.email" name="email" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Teléfono</label>
+          <input type="text" class="form-control" [(ngModel)]="cliente.telefono" name="telefono" required />
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Cliente</button>
+      </form>
+
+      <!-- Lista de clientes -->
+      <h5 class="mt-4">📜 Lista de Clientes</h5>
+      <ul class="list-group">
+        <li *ngFor="let cliente of clientes" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>👤 {{ cliente.nombre }} - 📧 {{ cliente.email }}</span>
+          <button class="btn btn-danger btn-sm" (click)="eliminarCliente(cliente.id)">🗑 Eliminar</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 🔹 Sección de Cuentas -->
+  <div class="card mt-4">
+    <div class="card-header bg-warning text-dark">
+      <h4>🏦 Gestionar Cuentas</h4>
+    </div>
+    <div class="card-body">
+      <!-- Formulario para agregar cuentas -->
+      <form (ngSubmit)="agregarCuenta()">
+        <div class="mb-3">
+          <label class="form-label">Tipo</label>
+          <select class="form-control" [(ngModel)]="cuenta.tipo" name="tipo" required>
+            <option value="Ahorro">Ahorro</option>
+            <option value="Corriente">Corriente</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Saldo</label>
+          <input type="number" class="form-control" [(ngModel)]="cuenta.saldo" name="saldo" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cliente</label>
+          <select class="form-control" [(ngModel)]="cuenta.clienteId" name="clienteId" required>
+            <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Cuenta</button>
+      </form>
+
+      <!-- Lista de cuentas -->
+      <h5 class="mt-4">📜 Lista de Cuentas</h5>
+      <ul class="list-group">
+        <li *ngFor="let cuenta of cuentas" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>🏦 {{ cuenta.tipo }} - 💰 {{ cuenta.saldo }} ({{ cuenta.cliente?.nombre ?? 'Sin Cliente' }})</span>
+          <button class="btn btn-danger btn-sm" (click)="eliminarCuenta(cuenta.id)">🗑 Eliminar</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 🔹 Sección de Movimientos -->
+  <div class="card mt-4">
+    <div class="card-header bg-info text-white">
+      <h4>🔄 Gestionar Movimientos</h4>
+    </div>
+    <div class="card-body">
+      <!-- Formulario para agregar movimientos -->
+      <form (ngSubmit)="agregarMovimiento()">
+        <div class="mb-3">
+          <label class="form-label">Monto</label>
+          <input type="number" class="form-control" [(ngModel)]="movimiento.monto" name="monto" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo</label>
+          <select class="form-control" [(ngModel)]="movimiento.tipo" name="tipo" required>
+            <option value="Crédito">Crédito</option>
+            <option value="Débito">Débito</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cuenta</label>
+          <select class="form-control" [(ngModel)]="movimiento.cuentaId" name="cuentaId" required>
+            <option *ngFor="let cuenta of cuentas" [value]="cuenta.id">{{ cuenta.tipo }} - {{ cuenta.saldo }}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">Agregar Movimiento</button>
+      </form>
+
+      <!-- Lista de movimientos -->
+      <h5 class="mt-4">📜 Lista de Movimientos</h5>
+      <ul class="list-group">
+        <li *ngFor="let movimiento of movimientos" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>💰 {{ movimiento.monto }} - 🔄 {{ movimiento.tipo }} (🏦 {{ movimiento.cuenta?.tipo ?? 'Sin Cuenta' }})</span>
+          <button class="btn btn-danger btn-sm" (click)="eliminarMovimiento(movimiento.id)">🗑 Eliminar</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 🔹 Botón para cerrar sesión -->
+  <div class="text-center mt-4">
+    <button class="btn btn-dark" (click)="logout()">🚪 Cerrar Sesión</button>
+  </div>
+</div>

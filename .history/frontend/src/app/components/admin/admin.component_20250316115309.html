@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+      <h2>⚙️ Panel de Administración</h2>
+      <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h4>👤 Agregar Cliente</h4>
+          <form (ngSubmit)="agregarCliente()">
+            <input type="text" class="form-control mb-2" placeholder="Nombre" [(ngModel)]="cliente.nombre" name="nombre" required />
+            <input type="email" class="form-control mb-2" placeholder="Email" [(ngModel)]="cliente.email" name="email" required />
+            <input type="text" class="form-control mb-2" placeholder="Teléfono" [(ngModel)]="cliente.telefono" name="telefono" required />
+            <button class="btn btn-success w-100">Agregar Cliente</button>
+          </form>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h4>🏦 Agregar Cuenta</h4>
+          <form (ngSubmit)="agregarCuenta()">
+            <input type="text" class="form-control mb-2" placeholder="Tipo" [(ngModel)]="cuenta.tipo" name="tipo" required />
+            <input type="number" class="form-control mb-2" placeholder="Saldo" [(ngModel)]="cuenta.saldo" name="saldo" required />
+            <button class="btn btn-success w-100">Agregar Cuenta</button>
+          </form>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h4>💰 Agregar Movimiento</h4>
+          <form (ngSubmit)="agregarMovimiento()">
+            <input type="number" class="form-control mb-2" placeholder="Monto" [(ngModel)]="movimiento.monto" name="monto" required />
+            <input type="text" class="form-control mb-2" placeholder="Tipo" [(ngModel)]="movimiento.tipo" name="tipo" required />
+            <button class="btn btn-success w-100">Agregar Movimiento</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
